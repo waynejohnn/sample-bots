@@ -27,6 +27,9 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.FormFlow;
 
 namespace EmailSignupBot.Forms
+
+
+
 {
     /// <summary>
     /// Implements a Form and FormFlow to collect email address and zip code for sign up.
@@ -36,6 +39,7 @@ namespace EmailSignupBot.Forms
     {
         public string EmailAddress { get; set; }
         public string ZipCode { get; set; }
+        public ContactMethod ContactPreference { get; set; }
 
         // email regex is from: https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address
         private const string EmailRegExPattern = @"^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
@@ -48,12 +52,14 @@ namespace EmailSignupBot.Forms
         {
             var result = new ValidateResult { IsValid = true, Value = response };
             var email = (response as string).Trim();
+
+            /*  Just removed the validation check::::::
             if (!Regex.IsMatch(email, EmailRegExPattern))
             {
                 result.Feedback = "Sorry, that doesn't look like a valid email address.";
                 result.IsValid = false;
             }
-
+            */
             return await Task.FromResult(result);
         };
 
@@ -82,7 +88,16 @@ namespace EmailSignupBot.Forms
             return new FormBuilder<SignupForm>()
                 .Field(nameof(SignupForm.EmailAddress), validate: EmailValidator)
                 .Field(nameof(SignupForm.ZipCode), validate: ZipValidator)
+                .Field(nameof(SignupForm.ContactPreference))
                 .Build();
         }
+    }
+
+    public enum ContactMethod
+    {
+        IGNORE,
+        Telephone,
+        SMS,
+        Email
     }
 }

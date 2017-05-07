@@ -141,6 +141,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="LUIS\EmailSignupBot.json" />
+    <None Include="Properties\PublishProfiles\EmailSignupBot - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

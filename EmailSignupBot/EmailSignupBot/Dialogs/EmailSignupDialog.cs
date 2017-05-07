@@ -35,7 +35,7 @@ using Microsoft.Bot.Builder.Luis.Models;
 namespace EmailSignupBot.Dialogs
 {
     // Update this attribute with your LUIS model App ID and Key
-    [LuisModel("00000000-0000-0000-0000-000000000000", "00000000000000000000000000000000")]
+    [LuisModel("c5c1633a-a789-4869-8e9a-5f041d4a1193", "40bcd8cf2ae04d1594362dc4cb21f7e8")]
     [Serializable]
     public class EmailSignupDialog : LuisDialog<object>
     {
@@ -110,7 +110,7 @@ namespace EmailSignupBot.Dialogs
             {
                 // Here is where we could call our signup service here to complete the sign-up
 
-                var message = $"Thanks! We signed up **{form.EmailAddress}** in zip code **{form.ZipCode}**.";
+                var message = $"Thanks! We signed up **{form.EmailAddress}** in zip code **{form.ZipCode}**. Your preferred contact method is **{form.ContactPreference}**";
                 await context.PostAsync(message);
             }
 
